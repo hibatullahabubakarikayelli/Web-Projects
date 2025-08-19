@@ -1,12 +1,956 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<title>KINGSLEY</title>
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hiba MediCare Connect | Doctor Appointment System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0ea5e9;
+            --accent: #ec4899;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: white;
+            font-size: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            outline: none;
+        }
+
+        .btn-primary {
+            background-color: white;
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: #e2e8f0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(37, 99, 235, 0.9), rgba(14, 165, 233, 0.8)), url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1353&q=80') center/cover no-repeat;
+            padding: 5rem 0;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        /* Login Sections */
+        .login-sections {
+            padding: 4rem 0;
+            background-color: #e2e8f0;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .login-box {
+            background: white;
+            border-radius: 10px;
+            padding: 2.5rem;
+            box-shadow: var(--card-shadow);
+            width: 100%;
+            max-width: 450px;
+            transition: var(--transition);
+        }
+
+        .login-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            text-align: center;
+        }
+
+        .login-box i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            display: block;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-login {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .btn-login:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--gray);
+        }
+
+        .login-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Signup Section */
+        .signup-section {
+            padding: 4rem 0;
+            background: linear-gradient(to right, #f0f7ff, #e6f3ff);
+        }
+
+        .signup-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+        }
+
+        .signup-info {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .signup-info h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .signup-info ul {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .signup-info ul li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .signup-info ul li i {
+            font-size: 1.2rem;
+        }
+
+        .signup-form {
+            flex: 1;
+            padding: 3rem;
+        }
+
+        .signup-form h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+            text-align: center;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        /* Chatbot Section */
+        .chatbot-section {
+            padding: 4rem 0;
+            background: linear-gradient(to bottom, #f8fafc, #e2e8f0);
+        }
+
+        .chatbot-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatbot-header {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .chatbot-header h3 {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center/cover;
+            background-blend-mode: lighten;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 18px;
+            border-radius: 18px;
+            line-height: 1.4;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .bot-message {
+            background-color: #f1f5f9;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .user-message {
+            background-color: var(--primary);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 1rem;
+            background-color: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 0.8rem 1.2rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .chat-input button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-left: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .chat-input button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .login-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .login-box {
+                width: 100%;
+            }
+            
+            .signup-container {
+                flex-direction: column;
+            }
+            
+            .signup-info {
+                padding: 2rem;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
 <body>
-    <h1 id="myh1"></h1>
-    <script src="index.js"></script>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">
+                <i class="fas fa-heartbeat"></i>
+                <span>Hiba MediCare Connect</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-user-md"></i> Doctors</a></li>
+                    <li><a href="#"><i class="fas fa-calendar-check"></i> Appointments</a></li>
+                    <li><a href="#signup"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn btn-outline" onclick="openLogin('user')"><i class="fas fa-sign-in-alt"></i> User Login</button>
+                <button class="btn btn-primary" onclick="openLogin('admin')"><i class="fas fa-lock"></i> Admin Login</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Book Your Doctor Appointment Online</h1>
+            <p>Connect with healthcare professionals anytime, anywhere. Fast, convenient, and secure medical consultations at your fingertips.</p>
+            <button class="btn btn-primary" onclick="openLogin('user')"><i class="fas fa-calendar-plus"></i> Book Appointment</button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose Our Platform</h2>
+                <p>We provide a seamless experience for both patients and healthcare providers</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>24/7 Availability</h3>
+                    <p>Book appointments anytime from anywhere. Our platform is available 24 hours a day, 7 days a week.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Find Specialists</h3>
+                    <p>Search from our extensive network of qualified doctors and specialists to find the right care for you.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>Instant Reminders</h3>
+                    <p>Get automated reminders via email and SMS so you never miss an important appointment again.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Signup Section -->
+    <section id="signup" class="signup-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Create Your Account</h2>
+                <p>Join thousands of patients managing their healthcare online</p>
+            </div>
+            <div class="signup-container">
+                <div class="signup-info">
+                    <h2>Join Our Healthcare Community</h2>
+                    <p>Sign up today to access a world of convenient healthcare services at your fingertips.</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Easy appointment scheduling</li>
+                        <li><i class="fas fa-check-circle"></i> Access to medical records</li>
+                        <li><i class="fas fa-check-circle"></i> Prescription refills</li>
+                        <li><i class="fas fa-check-circle"></i> Secure messaging with doctors</li>
+                        <li><i class="fas fa-check-circle"></i> Health reminders and notifications</li>
+                    </ul>
+                </div>
+                <div class="signup-form">
+                    <h3>Patient Registration</h3>
+                    <form id="signupForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" class="form-control" placeholder="Enter your first name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" class="form-control" placeholder="Enter your last name" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" class="form-control" placeholder="Create a password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" id="terms" required>
+                            <label for="terms" style="display: inline; font-weight: normal;">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                        </div>
+                        <button type="submit" class="btn btn-login"><i class="fas fa-user-plus"></i> Create Account</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Sections -->
+    <section class="login-sections">
+        <div class="container">
+            <div class="section-title">
+                <h2>Access Your Account</h2>
+                <p>Login to manage appointments or access the admin dashboard</p>
+            </div>
+            <div class="login-container">
+                <!-- User Login -->
+                <div class="login-box">
+                    <i class="fas fa-user-injured"></i>
+                    <h3>Patient Login</h3>
+                    <div class="form-group">
+                        <label for="user-email">Email Address</label>
+                        <input type="email" id="user-email" class="form-control" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-password">Password</label>
+                        <input type="password" id="user-password" class="form-control" placeholder="Enter your password">
+                    </div>
+                    <button class="btn btn-login" onclick="userLogin()"><i class="fas fa-sign-in-alt"></i> Login as Patient</button>
+                    <div class="login-footer">
+                        <p>Don't have an account? <a href="#signup">Register here</a></p>
+                        <p><a href="#">Forgot your password?</a></p>
+                    </div>
+                </div>
+                
+                <!-- Admin Login -->
+                <div class="login-box">
+                    <i class="fas fa-user-md"></i>
+                    <h3>Admin Login</h3>
+                    <div class="form-group">
+                        <label for="admin-username">Username</label>
+                        <input type="text" id="admin-username" class="form-control" placeholder="Enter admin username">
+                    </div>
+                    <div class="form-group">
+                        <label for="admin-password">Password</label>
+                        <input type="password" id="admin-password" class="form-control" placeholder="Enter admin password">
+                    </div>
+                    <button class="btn btn-login" onclick="adminLogin()"><i class="fas fa-lock"></i> Login as Admin</button>
+                    <div class="login-footer">
+                        <p>For authorized personnel only</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot Section -->
+    <section class="chatbot-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Medical Assistant Chatbot</h2>
+                <p>Get instant answers to your healthcare questions</p>
+            </div>
+            <div class="chatbot-container">
+                <div class="chatbot-header">
+                    <h3><i class="fas fa-robot"></i> MediCare Assistant</h3>
+                </div>
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message bot-message">
+                        Hello! I'm your MediCare assistant. How can I help you today? 😊
+                    </div>
+                    <div class="message bot-message">
+                        You can ask me about:
+                        <ul>
+                            <li>Booking appointments</li>
+                            <li>Finding doctors</li>
+                            <li>Clinic hours</li>
+                            <li>Prescription refills</li>
+                            <li>General health information</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="chat-input" placeholder="Type your message here...">
+                    <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>Hiba MediCare Connect</h4>
+                    <p>Your trusted partner in healthcare management. We connect patients with healthcare providers seamlessly.</p>
+                    <div class="social-icons" style="margin-top: 1rem;">
+                        <a href="#" style="color: white; margin-right: 15px;"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" style="color: white; margin-right: 15px;"><i class="fab fa-twitter"></i></a>
+                        <a href="#" style="color: white; margin-right: 15px;"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Find a Doctor</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Book Appointment</a></li>
+                        <li><a href="#signup"><i class="fas fa-chevron-right"></i> Sign Up</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Our Services</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Online Appointments</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Medical Records</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Prescription Refills</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Health Reminders</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Telemedicine</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us (+233 55 594 3288)</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Teasno, Greater Accra City</li>
+                        <li><i class="fas fa-phone"></i> +233 55 594 3288</li>
+                        <li><i class="fas fa-envelope"></i> info@medicareconnect.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 8:00 AM - 6:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 MediCare Connect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Login functions
+        function openLogin(type) {
+            if (type === 'user') {
+                document.getElementById('user-email').focus();
+            } else {
+                document.getElementById('admin-username').focus();
+            }
+            
+            // Scroll to login section
+            document.querySelector('.login-sections').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function userLogin() {
+            const email = document.getElementById('user-email').value;
+            const password = document.getElementById('user-password').value;
+            
+            if (!email || !password) {
+                alert('Please enter both email and password');
+                return;
+            }
+            
+            // In a real app, this would be an API call
+            alert(`User login successful!\nEmail: ${email}\n\nRedirecting to user dashboard...`);
+            // Redirect to user dashboard would happen here
+        }
+
+        function adminLogin() {
+            const username = document.getElementById('admin-username').value;
+            const password = document.getElementById('admin-password').value;
+            
+            if (!username || !password) {
+                alert('Please enter both username and password');
+                return;
+            }
+            
+            // In a real app, this would be an API call
+            if (username === 'admin' && password === 'admin123') {
+                alert('Admin login successful! Redirecting to admin dashboard...');
+                // Redirect to admin dashboard would happen here
+            } else {
+                alert('Invalid admin credentials. Please try again.');
+            }
+        }
+
+        // Signup form submission
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match. Please try again.');
+                return;
+            }
+            
+            // In a real app, this would send data to the server
+            alert(`Thank you for registering, ${firstName} ${lastName}!\n\nAn activation link has been sent to ${email}`);
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Chatbot functionality
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+            
+            // Add user message
+            addMessage(message, 'user');
+            chatInput.value = '';
+            
+            // Simulate bot response after a delay
+            setTimeout(() => {
+                const botResponse = generateBotResponse(message);
+                addMessage(botResponse, 'bot');
+            }, 1000);
+        }
+
+        function addMessage(text, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.classList.add(sender === 'bot' ? 'bot-message' : 'user-message');
+            messageElement.textContent = text;
+            chatMessages.appendChild(messageElement);
+            
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function generateBotResponse(userMessage) {
+            const lowerMessage = userMessage.toLowerCase();
+            
+            if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+                return "Hello there! How can I assist you with your healthcare needs today?";
+            } else if (lowerMessage.includes('appointment') || lowerMessage.includes('book')) {
+                return "To book an appointment, please log in to your account and go to the 'Book Appointment' section. You can search for doctors by specialty, location, or availability.";
+            } else if (lowerMessage.includes('doctor') || lowerMessage.includes('specialist')) {
+                return "We have specialists in various fields including cardiology, dermatology, pediatrics, and more. What type of specialist are you looking for?";
+            } else if (lowerMessage.includes('time') || lowerMessage.includes('hour')) {
+                return "Our clinic is open Monday to Friday from 8:00 AM to 8:00 PM, and on Saturdays from 9:00 AM to 4:00 PM. We're closed on Sundays.";
+            } else if (lowerMessage.includes('prescription') || lowerMessage.includes('refill')) {
+                return "For prescription refills, please contact your doctor directly through your patient portal or call our pharmacy at (555) 987-6543.";
+            } else if (lowerMessage.includes('thank')) {
+                return "You're welcome! Is there anything else I can help you with?";
+            } else if (lowerMessage.includes('emergency')) {
+                return "If this is a medical emergency, please call 911 or go to your nearest emergency room immediately.";
+            } else if (lowerMessage.includes('sign up') || lowerMessage.includes('register')) {
+                return "You can sign up by visiting our registration page. Click the 'Sign Up' link in the navigation menu to get started!";
+            } else {
+                return "I'm here to help with your healthcare questions. Could you please rephrase your question? You can ask about appointments, doctors, clinic hours, or prescription refills.";
+            }
+        }
+
+        // Allow sending message with Enter key
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
 </body>
 </html>
